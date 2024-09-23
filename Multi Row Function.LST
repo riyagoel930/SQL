@@ -1,0 +1,147 @@
+SQL> 
+     SELECT *
+  2  FROM EMP
+  3  WHERE SAL <2000 AND DEPTNO=20;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+
+SQL> SELECT SUM(SAL)
+  2  FROM EMP
+  3  WHERE JOB='CLERK';
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      4150                                                                                                                                                                                              
+
+SQL> SELECT SUM(SAL)
+  2  FROM EMP;
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     29025                                                                                                                                                                                              
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE ENAME LIKE 'A%';
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         2                                                                                                                                                                                              
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3* WHERE JOB='CLERK' OR JOB='MANAGER'
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         7                                                                                                                                                                                              
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE TO_CHAR(HIREDATE,'MON') IN ('FEB');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE MGR=7839;
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         3                                                                                                                                                                                              
+
+SQL>
+
+  1  SELECT COUNT(*)
+  2  FROM EMP
+  3* WHERE COMM IS NOT NULL AND DEPTNO=30
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         4                                                                                                                                                                                              
+
+SQL> SELECT AVG(SAL),SUM(SAL),COUNT(*),MAX(SAL)
+  2  FROM EMP
+  3  WHERE JOB='PRESIDENT';
+
+  AVG(SAL)   SUM(SAL)   COUNT(*)   MAX(SAL)                                                                                                                                                             
+---------- ---------- ---------- ----------                                                                                                                                                             
+      5000       5000          1       5000                                                                                                                                                             
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%A%';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+
+7 rows selected.
+
+SQL> SELECT COUNT(*),SUM(SAL)
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%LL%';
+
+  COUNT(*)   SUM(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+         2       2900                                                                                                                                                                                   
+
+SQL> 
+
+  1  SELECT COUNT(*)
+  2* FROM EMP
+  3  /
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        14                                                                                                                                                                                              
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%Z%';
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         0                                                                                                                                                                                              
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%S%';
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         5                                                                                                                                                                                              
+
+
+SQL> SELECT SUM(SAL)
+  2  FROM EMP
+  3  WHERE JOB='CLERK' AND DEPTNO=30;
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+       950                                                                                                                                                                                              
+
+SQL> SELECT MAX(SAL)
+  2  FROM EMP
+  3  WHERE JOB='ANALYST';
+
+  MAX(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      3000                                                                                                                                                                                              
+
+SQL> SPOOL OFF
