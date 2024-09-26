@@ -1,0 +1,137 @@
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL>(SELECT SAL
+  4             FROM EMP
+  5             WHERE ENAME='SCOTT')
+  6  AND DEPTNO IN(SELECT DEPTNO
+  7               FROM DEPT
+  8               WHERE DNAME='ACCOUNTING');
+
+ENAME                                                                           
+----------                                                                      
+KING                                                                            
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB='MANAGER' AND
+  4       DEPTNO IN(SELECT DEPTNO
+  5                FROM DEPT
+  6                WHERE LOC='CHICAGO');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT ENAME,SAL
+  2  FROM EMP
+  3  WHERE SAL >(SELECT SAL
+  4             FROM EMP
+  5             WHERE ENAME='KING')
+  6  AND DEPTNO IN(SELECT DEPTNO
+  7               FROM DEPT
+  8               WHERE DNAME='ACCOUNTING');
+
+no rows selected
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN'
+  4  AND DEPTNO IN(SELECT DEPTNO
+  5               FROM DEPT
+  6               WHERE DNAME='SALES');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SQL> 
+
+  1  SELECT ENAME,SAL,JOB,HIREDATE
+  2  FROM EMP
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4                  FROM DEPT
+  5                  WHERE DNAME='OPERATION') AND
+  6        HIREDATE <(SELECT HIREDATE
+  7                   FROM EMP
+  8                  WHERE ENAME = 'KING')
+
+no rows selected
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL>
+  1  SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO  IN(SELECT DEPTNO
+  4                   FROM DEPT
+  5                  WHERE DNAME LIKE '%S')
+ 
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+
+6 rows selected.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> 
+
+  1  SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4                  FROM EMP
+  5*                 WHERE ENAME LIKE '%A%')
+
+DNAME                                                                                                                                                                                                   
+--------------                                                                                                                                                                                          
+ACCOUNTING                                                                                                                                                                                              
+RESEARCH                                                                                                                                                                                                
+SALES                                                                                                                                                                                                   
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT DNAME,LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4                  FROM EMP
+  5                  WHERE SAL=80);
+
+no rows selected
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> 
+
+  1  SELECT DNAME,LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4                  FROM EMP
+  5*                 WHERE SAL=800)
+
+DNAME          LOC                                                                                                                                                                                      
+-------------- -------------                                                                                                                                                                            
+RESEARCH       DALLAS                                                                                                                                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN (SELECT DEPTNO
+  4                   FROM EMP
+  5                   WHERE COMM IS NOT NULL);
+
+DNAME                                                                                                                                                                                                   
+--------------                                                                                                                                                                                          
+SALES                                                                                                                                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4                  FROM EMP
+  5                  WHERE COMM IS NOT NULL) AND
+  6        DEPTNO=40;
+
+no rows selected
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL> SPOOL OFF
